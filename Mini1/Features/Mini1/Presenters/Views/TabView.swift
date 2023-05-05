@@ -32,6 +32,7 @@ struct TabView: View {
                     .background(selectedButton == 3 ? Color("secondaryColor") : Color(.white))
                     .clipShape(Circle())
                     .offset(y: -15)
+                    .padding(.leading, 6)
                     
                 }
             }
