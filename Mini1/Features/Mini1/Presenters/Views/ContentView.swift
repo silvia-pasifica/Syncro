@@ -9,32 +9,48 @@ import SwiftUI
 
 struct ContentView: View {
     @State static var inputImage: UIImage?
-    
+    @State var selectedButton = 1
+
+    var currentPage = 1
     var body: some View {
-        VStack {
-            TabView()
-//            TabView {
-//                HomeView()
-//                    .tabItem {
-//                        Label("Home", systemImage: "house")
-//                    }
-////                AddView()
-////                    .tabItem {
-////                        Label("Add", systemImage: "plus")
-////                    }
-//                AddJournalView()
-//                    .tabItem {
-//                        Label("Add", systemImage: "plus")
-//                    }
-//                DataView()
-//                    .tabItem {
-//                        Label("Developer", systemImage: "gearshape")
-//                    }
-//                JournalListView()
-//                    .tabItem {
-//                        Label("Home", systemImage: "house")
-//                    }
-//            }
+        ZStack{
+            switch self.selectedButton {
+            case 1:
+               
+                HomeView()
+            case 2:
+                JournalListView()
+            case 3:
+                AddView()
+            default:
+                Text("test")
+            }
+            if selectedButton != 3 {
+                VStack{
+                    Spacer()
+                    ZStack {
+                        BottomBar(selectedButton: self.$selectedButton).background(CurveShape(selectedButton: self.$selectedButton))
+                            .padding(.leading, -5)
+                      
+                        Button(action: {
+                            selectedButton = 3
+                        }){
+                            VStack{
+                                Image(systemName: "plus")
+                                    .font(.system(size: 35))
+                            }
+                            .padding()
+                        }
+                        .foregroundColor(selectedButton == 3 ? Color("primaryColor"): Color(.gray))
+                        .background(selectedButton == 3 ? Color("secondaryColor") : Color(.white))
+                        .shadow(color:Color(.black) , radius: 20, x:0, y:2)
+                        .clipShape(Circle())
+                        .offset(y: -15)
+
+
+                    }
+                }
+            }
         }
     }
 }

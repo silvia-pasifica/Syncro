@@ -15,6 +15,7 @@ struct AddView: View {
     @State var dateSame: Bool = false
     
     var body: some View {
+        
         VStack {
             DatePicker("Pick a date", selection: $vm.date, displayedComponents: .date)
             Text("\(vm.usedDate)")

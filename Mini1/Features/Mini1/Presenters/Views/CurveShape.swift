@@ -7,47 +7,8 @@
 
 import SwiftUI
 
-struct TabView: View {
-    @State var selectedButton: Int = 0
-    
-    var body: some View {
-        ZStack{
-            Color("primaryColor").ignoresSafeArea()
-            VStack{
-                Spacer()
-                ZStack {
-                    BottomBar(selectedButton: $selectedButton).background(CurveShape(selectedButton: selectedButton))
-                       
-                    Button(action: {
-                        selectedButton = 3
-                        
-                    }){
-                        VStack{
-                            Image(systemName: "plus")
-                                .font(.system(size: 35))
-                        }
-                        .padding()
-                    }
-                    .foregroundColor(selectedButton == 3 ? Color("primaryColor"): Color(.gray))
-                    .background(selectedButton == 3 ? Color("secondaryColor") : Color(.white))
-                    .clipShape(Circle())
-                    .offset(y: -15)
-                    .padding(.leading, 6)
-                    
-                }
-            }
-        }
-    }
-}
-
-struct TabView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabView()
-    }
-}
-
 struct CurveShape: View{
-    var selectedButton: Int
+    @Binding var selectedButton: Int
     
     var body: some View{
         ZStack{
@@ -55,7 +16,7 @@ struct CurveShape: View{
                 path.move(to: CGPoint(x: 0, y: 0))
                 path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
                 path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 100))
-//                path.addArc(center: CGPoint(x: UIScreen.main.bounds.width/2, y: 65), radius: 40, startAngle: .zero, endAngle: .init(degrees: 180), clockwise: true)
+
                 path.addLine(to: CGPoint(x:0, y: 100))
             }
             .fill(selectedButton == 1 ? Color("secondaryColor") : Color.white)
@@ -91,7 +52,7 @@ struct CurveShape: View{
                 path.addCurve(to: to2, control1: control3, control2: control4)
                 path.addLine(to: CGPoint(x:0, y: 100))
             }
-            .fill(Color("primaryColor"))
+            .fill(selectedButton == 1 ? Color("primaryColor"): Color.white )
             .rotationEffect(.init(degrees: 180))
         }.ignoresSafeArea()
     }
@@ -102,8 +63,10 @@ struct BottomBar: View{
     
     var body: some View{
         HStack(alignment: .bottom){
+            
             Button(action: {
-                selectedButton = 1
+                self.selectedButton = 1
+               
             }){
                 ZStack{
                     VStack{
@@ -114,11 +77,12 @@ struct BottomBar: View{
                     .frame(width: 193)
                     .padding(.top)
                 }
-            }.foregroundColor(selectedButton == 1 ? Color("primaryColor"): Color(.gray))
+            }.foregroundColor(self.selectedButton == 1 ? Color("primaryColor"): Color(.gray))
             Spacer(minLength: 12)
             
             Button(action: {
-                selectedButton = 2
+                self.selectedButton = 2
+                
             }){
                 ZStack{
                     VStack{
@@ -129,7 +93,7 @@ struct BottomBar: View{
                     .frame(width: 193)
                     .padding(.top)
                 }
-            }.foregroundColor(selectedButton == 2 ? Color("primaryColor"): Color(.gray))
+            }.foregroundColor(self.selectedButton == 2 ? Color("primaryColor"): Color(.gray))
         }
         .padding(.bottom)
         .offset(y: 25)
