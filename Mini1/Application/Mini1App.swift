@@ -13,7 +13,7 @@ struct Mini1App: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreenView()
             //TagHomeView()
             //CalendarView(date: Date())
             //JournalView()
